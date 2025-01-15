@@ -2,10 +2,27 @@ import lapiz from "../../images/Vector (1).svg";
 import Avatar from "../../images/Avatar.png";
 import editperfil from "../../images/Edit Button.png";
 import agregarimg from "../../images/Add Button.png";
-import botebasura from "../../images/Trash.png";
-import megusta from "../../images/Group.png";
 import cierre from "../../images/Close Icon.svg";
 import Popup from "../Popup/Popup.jsx";
+import NewCard from "../Card/NewCard.jsx";
+const cards = [
+  {
+    isLiked: false,
+    _id: "5d1f0611d321eb4bdcd707dd",
+    name: "Yosemite Valley",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_yosemite.jpg",
+    owner: "5d1f0611d321eb4bdcd707dd",
+    createdAt: "2019-07-05T08:10:57.741Z",
+  },
+  {
+    isLiked: false,
+    _id: "5d1f064ed321eb4bdcd707de",
+    name: "Lake Louise",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lake-louise.jpg",
+    owner: "5d1f0611d321eb4bdcd707dd",
+    createdAt: "2019-07-05T08:11:58.324Z",
+  },
+];
 const Main = (props) => {
   const {
     popupEdit,
@@ -15,6 +32,11 @@ const Main = (props) => {
     handleOpenEditAvatar,
     handleOpenEditCard,
     handleOpenEditPopup,
+    handleCloseEditPopup,
+    handleCloseEditAvatar,
+    handleCloseEditCard,
+    handleCloseImage,
+    handleOpenImage,
   } = props;
   return (
     <div>
@@ -55,31 +77,9 @@ const Main = (props) => {
       </section>
       <section className="elements">
         <div className="elements__container">
-          <template id="elements_template">
-            <div className="elements_card">
-              <div className="elements_img-container">
-                <img alt="foto de referencia" className="elements_img" />
-              </div>
-              <button className="elements__trash" aria-label="Borrar">
-                <img
-                  src={botebasura}
-                  alt="bote de basura"
-                  className="elements__trash-img"
-                />
-              </button>
-
-              <div className="elements_info">
-                <p className="elements_text"></p>
-                <button className="elements_link" aria-label="Me gusta">
-                  <img
-                    src={megusta}
-                    alt="corazon me gusta"
-                    className="elements_link-img"
-                  />
-                </button>
-              </div>
-            </div>
-          </template>
+          {cards.map((card) => (
+            <NewCard key={card._id} link={card.link} name={card.name} />
+          ))}
         </div>
       </section>
 
@@ -89,12 +89,18 @@ const Main = (props) => {
             src={cierre}
             className="dialog__form-img"
             alt="boton de cierre"
+            onClick={handleCloseImage}
           />
         </button>
 
-        <img className="dialog__img" id="dialog-img" />
+        <img
+          className="dialog__img"
+          id="dialog-img"
+          onClick={handleOpenImage}
+        />
         <div className="dialog__text" id="dialog-text"></div>
       </dialog>
+
       {popupEdit && (
         <Popup title="Editar perfil">
           <form className="popup__form" id="popup-form">
@@ -102,6 +108,7 @@ const Main = (props) => {
               className="popup__form-x popup__close-btn"
               id="popup-form-x"
               type="button"
+              onClick={handleCloseEditPopup}
             >
               <img
                 src={cierre}
@@ -151,6 +158,7 @@ const Main = (props) => {
               className="popup__form-x popup__close-btn"
               id="popup-card-form-x"
               type="button"
+              onClick={handleCloseEditCard}
             >
               <img
                 id="popup-x"
@@ -198,6 +206,7 @@ const Main = (props) => {
               className="popup__form-x popup__close-btn"
               id="popup-form-x"
               type="button"
+              onClick={handleCloseEditAvatar}
             >
               <img
                 src={cierre}

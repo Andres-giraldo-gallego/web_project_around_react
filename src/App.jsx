@@ -18,6 +18,22 @@ function App() {
   const handleOpenEditAvatar = () => {
     setPopupAvatar(true);
   };
+  const handleOpenImage = () => {
+    setPopupImage(true);
+  };
+
+  const handleCloseEditPopup = () => {
+    setPopupEdit(false);
+  };
+  const handleCloseEditCard = () => {
+    setPopupCard(false);
+  };
+  const handleCloseEditAvatar = () => {
+    setPopupAvatar(false);
+  };
+  const handleCloseImage = () => {
+    setPopupImage(false);
+  };
   return (
     <>
       <div>
@@ -31,6 +47,11 @@ function App() {
             handleOpenEditPopup={handleOpenEditPopup}
             handleOpenEditCard={handleOpenEditCard}
             handleOpenEditAvatar={handleOpenEditAvatar}
+            handleCloseEditPopup={handleCloseEditPopup}
+            handleCloseEditCard={handleCloseEditCard}
+            handleCloseEditAvatar={handleCloseEditAvatar}
+            handleCloseImage={handleCloseImage}
+            handleOpenImage={handleOpenImage}
           />
           <Footer />
         </div>
