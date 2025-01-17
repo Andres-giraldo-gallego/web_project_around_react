@@ -1,8 +1,14 @@
 import botebasura from "../../images/Trash.png";
 import megusta from "../../images/Group.png";
 
-const NewCard = (props) => {
-  const { link, name, handleCloseImage, handleOpenImage } = props;
+const Card = (props) => {
+  const { link, name, handleOpenImage, imagesPopup, setSelectCard } = props;
+
+  const handleCLick = () => {
+    handleOpenImage(imagesPopup);
+    setSelectCard({ link, name });
+  };
+
   return (
     <div className="elements_card">
       <div className="elements_img-container">
@@ -10,14 +16,10 @@ const NewCard = (props) => {
           src={link}
           alt={name}
           className="elements_img"
-          onClick={handleOpenImage}
+          onClick={handleCLick}
         />
       </div>
-      <button
-        className="elements__trash"
-        aria-label="Borrar"
-        onClick={handleCloseImage}
-      >
+      <button className="elements__trash" aria-label="Borrar">
         <img
           src={botebasura}
           alt="bote de basura"
@@ -38,4 +40,4 @@ const NewCard = (props) => {
     </div>
   );
 };
-export default NewCard;
+export default Card;

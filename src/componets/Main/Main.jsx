@@ -4,7 +4,7 @@ import editperfil from "../../images/Edit Button.png";
 import agregarimg from "../../images/Add Button.png";
 import cierre from "../../images/Close Icon.svg";
 import Popup from "../Popup/Popup.jsx";
-import NewCard from "../Card/NewCard.jsx";
+import Card from "../Card/Card.jsx";
 const cards = [
   {
     isLiked: false,
@@ -25,23 +25,23 @@ const cards = [
 ];
 const Main = (props) => {
   const {
-    popupEdit,
-    popupCard,
-    popupAvatar,
     popupImage,
-    handleOpenEditAvatar,
-    handleOpenEditCard,
-    handleOpenEditPopup,
-    handleCloseEditPopup,
-    handleCloseEditAvatar,
-    handleCloseEditCard,
-    handleCloseImage,
-    handleOpenImage,
+    handleClosePopup,
+    newCardPopup,
+    handleOpenPopup,
+    popup,
+    newEditPopup,
+    newAvatarPopup,
+    imagesPopup,
+    setSelectCard,
   } = props;
   return (
     <div>
       <section className="profile">
-        <div className="profile__container" onClick={handleOpenEditAvatar}>
+        <div
+          className="profile__container"
+          onClick={() => handleOpenPopup(newAvatarPopup)}
+        >
           <img src={lapiz} alt="lapiz" className="profile__avatar-edit" />
           <img src={Avatar} alt="Avatar" className="profile__avatar" />
         </div>
@@ -54,7 +54,7 @@ const Main = (props) => {
           <button
             className="profile__edit-button"
             aria-label="Editar perfil"
-            onClick={handleOpenEditPopup}
+            onClick={() => handleOpenPopup(newEditPopup)}
           >
             <img
               src={editperfil}
@@ -66,7 +66,7 @@ const Main = (props) => {
         <button
           className="profile__add-button button-loading"
           aria-label="Agregar nueva imagen"
-          onClick={handleOpenEditCard}
+          onClick={() => handleOpenPopup(newCardPopup)}
         >
           <img
             src={agregarimg}
@@ -78,163 +78,24 @@ const Main = (props) => {
       <section className="elements">
         <div className="elements__container">
           {cards.map((card) => (
-            <NewCard key={card._id} link={card.link} name={card.name} />
+            <Card
+              key={card._id}
+              link={card.link}
+              name={card.name}
+              imagesPopup={imagesPopup}
+              handleOpenImage={handleOpenPopup}
+              setSelectCard={setSelectCard}
+            />
           ))}
         </div>
       </section>
 
-      <dialog className="dialog" id="dialog">
-        <button className="dialog__button" id="dialog-x" type="button">
-          <img
-            src={cierre}
-            className="dialog__form-img"
-            alt="boton de cierre"
-            onClick={handleCloseImage}
-          />
-        </button>
-
-        <img
-          className="dialog__img"
-          id="dialog-img"
-          onClick={handleOpenImage}
-        />
-        <div className="dialog__text" id="dialog-text"></div>
-      </dialog>
-
-      {popupEdit && (
-        <Popup title="Editar perfil">
-          <form className="popup__form" id="popup-form">
-            <button
-              className="popup__form-x popup__close-btn"
-              id="popup-form-x"
-              type="button"
-              onClick={handleCloseEditPopup}
-            >
-              <img
-                src={cierre}
-                className="popup__form-img"
-                alt="boton de cierre"
-              />
-            </button>
-
-            <input
-              name="name"
-              className="popup__name popup__input"
-              placeholder="Nombre"
-              id="popup-name"
-              required
-              minLength="2"
-              maxLength="40"
-            />
-
-            <span id="name-error" className="popup__red"></span>
-
-            <input
-              name="about"
-              className="popup__about popup__input"
-              placeholder="Acerca de mí"
-              id="popup-about"
-              required
-              minLength="2"
-              maxLength="200"
-            />
-
-            <span id="about-error" className="popup__red"></span>
-
-            <button
-              className="popup__Submit-Button button-loading"
-              id="popup-Submit-Button"
-            >
-              Guardar
-            </button>
-          </form>
+      {popup && (
+        <Popup title={popup.title} onClick={handleClosePopup}>
+          {popup.children}
         </Popup>
       )}
 
-      {popupCard && (
-        <Popup title="Nuevo lugar">
-          <form className="popup__form" id="popup-card-form">
-            <button
-              className="popup__form-x popup__close-btn"
-              id="popup-card-form-x"
-              type="button"
-              onClick={handleCloseEditCard}
-            >
-              <img
-                id="popup-x"
-                src={cierre}
-                className="popup__form-img"
-                alt="boton de cierre"
-              />
-            </button>
-
-            <input
-              name="title"
-              className="popup__name popup__input"
-              placeholder="Título"
-              id="popup-card-name"
-              required
-              minLength="2"
-              maxLength="30"
-            />
-
-            <span id="title-error" className="popup__red"></span>
-
-            <input
-              name="link"
-              className="popup__about popup__input"
-              placeholder="Enlace a la imagen"
-              id="popup-link"
-              required
-              type="url"
-            />
-            <span id="link-error" className="popup__red"></span>
-
-            <button
-              className="popup__Submit-Button button-loading"
-              id="popup-card-Submit-Button"
-            >
-              Crear
-            </button>
-          </form>
-        </Popup>
-      )}
-      {popupAvatar && (
-        <Popup title="Cambiar foto de perfil">
-          <form className="popup__form" id="popup-form">
-            <button
-              className="popup__form-x popup__close-btn"
-              id="popup-form-x"
-              type="button"
-              onClick={handleCloseEditAvatar}
-            >
-              <img
-                src={cierre}
-                className="popup__form-img"
-                alt="boton de cierre"
-              />
-            </button>
-
-            <input
-              name="avatar"
-              className="popup__name popup__input"
-              placeholder="https://somewebsite.com/someimage.jpg"
-              id="popup-avatar"
-              required
-              minLength="2"
-            />
-
-            <span id="avatar-error" className="popup__red"></span>
-
-            <button
-              className="popup__Submit-Button button-loading"
-              id="popup-Submit-Button"
-            >
-              Guardar
-            </button>
-          </form>
-        </Popup>
-      )}
       {popupImage && (
         <Popup title="¿Estás seguro/a?">
           <form className="popup__form" id="popup-form">

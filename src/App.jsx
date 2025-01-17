@@ -2,56 +2,45 @@ import Header from "./componets/Header/Header.jsx";
 import Footer from "./componets/Footer/Footer.jsx";
 import { useState } from "react";
 import Main from "./componets/Main/Main.jsx";
+import NewCard from "./componets/NewCard/NewCard.jsx";
+import EditProfile from "./componets/EditProfile/EditProfile.jsx";
+import EditAvatar from "./componets/EditAvatar/EditAvatar.jsx";
+import ImagePopup from "./componets/ImagePopup/ImagePopup.jsx";
 
 function App() {
-  const [popupEdit, setPopupEdit] = useState(false);
-  const [popupCard, setPopupCard] = useState(false);
-  const [popupAvatar, setPopupAvatar] = useState(false);
-  const [popupImage, setPopupImage] = useState(false);
+  const [popup, setPopup] = useState(null);
+  const [selectCard, setSelectCard] = useState(null);
+  console.log(selectCard);
+  const newCardPopup = { title: "Nuevo lugar", children: <NewCard /> };
+  const newAvatarPopup = {
+    title: "Cambiar foto de perfil",
+    children: <EditAvatar />,
+  };
+  const newEditPopup = { title: "Editar perfil", children: <EditProfile /> };
+  const imagesPopup = { children: <ImagePopup selectCard={selectCard} /> };
 
-  const handleOpenEditPopup = () => {
-    setPopupEdit(true);
-  };
-  const handleOpenEditCard = () => {
-    setPopupCard(true);
-  };
-  const handleOpenEditAvatar = () => {
-    setPopupAvatar(true);
-  };
-  const handleOpenImage = () => {
-    setPopupImage(true);
+  const handleOpenPopup = (popup) => {
+    setPopup(popup);
   };
 
-  const handleCloseEditPopup = () => {
-    setPopupEdit(false);
+  const handleClosePopup = () => {
+    setPopup(null);
   };
-  const handleCloseEditCard = () => {
-    setPopupCard(false);
-  };
-  const handleCloseEditAvatar = () => {
-    setPopupAvatar(false);
-  };
-  const handleCloseImage = () => {
-    setPopupImage(false);
-  };
+
   return (
     <>
       <div>
         <div className="page">
           <Header />
           <Main
-            popupEdit={popupEdit}
-            popupCard={popupCard}
-            popupAvatar={popupAvatar}
-            popupImage={popupImage}
-            handleOpenEditPopup={handleOpenEditPopup}
-            handleOpenEditCard={handleOpenEditCard}
-            handleOpenEditAvatar={handleOpenEditAvatar}
-            handleCloseEditPopup={handleCloseEditPopup}
-            handleCloseEditCard={handleCloseEditCard}
-            handleCloseEditAvatar={handleCloseEditAvatar}
-            handleCloseImage={handleCloseImage}
-            handleOpenImage={handleOpenImage}
+            handleOpenPopup={handleOpenPopup}
+            handleClosePopup={handleClosePopup}
+            newCardPopup={newCardPopup}
+            popup={popup}
+            newAvatarPopup={newAvatarPopup}
+            newEditPopup={newEditPopup}
+            imagesPopup={imagesPopup}
+            setSelectCard={setSelectCard}
           />
           <Footer />
         </div>
