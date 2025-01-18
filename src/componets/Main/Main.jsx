@@ -31,6 +31,7 @@ const Main = (props) => {
     newEditPopup,
     newAvatarPopup,
     imagesPopup,
+    DeleteCard,
   } = props;
   return (
     <div>
@@ -81,6 +82,7 @@ const Main = (props) => {
               name={card.name}
               imagesPopup={imagesPopup}
               handleOpenImage={handleOpenPopup}
+              DeleteCard={DeleteCard}
             />
           ))}
         </div>

@@ -6,6 +6,7 @@ import NewCard from "./componets/NewCard/NewCard.jsx";
 import EditProfile from "./componets/EditProfile/EditProfile.jsx";
 import EditAvatar from "./componets/EditAvatar/EditAvatar.jsx";
 import ImagePopup from "./componets/ImagePopup/ImagePopup.jsx";
+import RemoveCard from "./componets/RemoveCard/RemoveCard.jsx";
 
 function App() {
   const [popup, setPopup] = useState(null);
@@ -20,6 +21,15 @@ function App() {
     children: <ImagePopup selectCard={selectCard} />,
   });
 
+  const DeleteCard = (selectCard) => ({
+    children: (
+      <RemoveCard
+        selectCard={selectCard}
+        handleSudmidButton={handleSudmidButton}
+      />
+    ),
+  });
+  const handleSudmidButton = () => {};
   const handleOpenPopup = (popup) => {
     setPopup(popup);
   };
@@ -41,6 +51,7 @@ function App() {
             newAvatarPopup={newAvatarPopup}
             newEditPopup={newEditPopup}
             imagesPopup={imagesPopup}
+            DeleteCard={DeleteCard}
           />
           <Footer />
         </div>

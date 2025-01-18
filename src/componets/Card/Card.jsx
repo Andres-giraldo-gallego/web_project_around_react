@@ -1,8 +1,9 @@
 import botebasura from "../../images/Trash.png";
 import megusta from "../../images/Group.png";
+import RemoveCard from "../RemoveCard/RemoveCard";
 
 const Card = (props) => {
-  const { link, name, handleOpenImage, imagesPopup } = props;
+  const { link, name, handleOpenImage, imagesPopup, DeleteCard } = props;
 
   const handleCLick = () => {
     handleOpenImage(imagesPopup({ link, name }));
@@ -23,6 +24,7 @@ const Card = (props) => {
           src={botebasura}
           alt="bote de basura"
           className="elements__trash-img"
+          onClick={() => handleOpenImage(DeleteCard)}
         />
       </button>
 

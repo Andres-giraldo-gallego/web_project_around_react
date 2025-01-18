@@ -21,8 +21,13 @@
 .popup__form {
   display: flex;
   flex-direction: column;
+  background-color: rgb(255, 255, 255);
+  padding: 2rem;
+  border-radius: 10px;
+  color: #000000;
   position: relative;
 }
+
 .popup__form-x {
   width: 40px;
   height: 40px;
