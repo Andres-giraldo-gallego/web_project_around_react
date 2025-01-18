@@ -2,11 +2,10 @@ import botebasura from "../../images/Trash.png";
 import megusta from "../../images/Group.png";
 
 const Card = (props) => {
-  const { link, name, handleOpenImage, imagesPopup, setSelectCard } = props;
+  const { link, name, handleOpenImage, imagesPopup } = props;
 
   const handleCLick = () => {
-    handleOpenImage(imagesPopup);
-    setSelectCard({ link, name });
+    handleOpenImage(imagesPopup({ link, name }));
   };
 
   return (

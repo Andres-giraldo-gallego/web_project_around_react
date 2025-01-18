@@ -2,7 +2,6 @@ import lapiz from "../../images/Vector (1).svg";
 import Avatar from "../../images/Avatar.png";
 import editperfil from "../../images/Edit Button.png";
 import agregarimg from "../../images/Add Button.png";
-import cierre from "../../images/Close Icon.svg";
 import Popup from "../Popup/Popup.jsx";
 import Card from "../Card/Card.jsx";
 const cards = [
@@ -25,7 +24,6 @@ const cards = [
 ];
 const Main = (props) => {
   const {
-    popupImage,
     handleClosePopup,
     newCardPopup,
     handleOpenPopup,
@@ -33,7 +31,6 @@ const Main = (props) => {
     newEditPopup,
     newAvatarPopup,
     imagesPopup,
-    setSelectCard,
   } = props;
   return (
     <div>
@@ -84,7 +81,6 @@ const Main = (props) => {
               name={card.name}
               imagesPopup={imagesPopup}
               handleOpenImage={handleOpenPopup}
-              setSelectCard={setSelectCard}
             />
           ))}
         </div>
@@ -93,31 +89,6 @@ const Main = (props) => {
       {popup && (
         <Popup title={popup.title} onClick={handleClosePopup}>
           {popup.children}
-        </Popup>
-      )}
-
-      {popupImage && (
-        <Popup title="¿Estás seguro/a?">
-          <form className="popup__form" id="popup-form">
-            <button
-              className="popup__form-x popup__close-btn"
-              id="popup-form-x"
-              type="button"
-            >
-              <img
-                src={cierre}
-                className="popup__form-img"
-                alt="boton de cierre"
-              />
-            </button>
-
-            <button
-              className="popup__Submit-Button button-loading"
-              id="popup-delete-button"
-            >
-              Sí
-            </button>
-          </form>
         </Popup>
       )}
     </div>

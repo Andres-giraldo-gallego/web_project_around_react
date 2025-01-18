@@ -9,15 +9,16 @@ import ImagePopup from "./componets/ImagePopup/ImagePopup.jsx";
 
 function App() {
   const [popup, setPopup] = useState(null);
-  const [selectCard, setSelectCard] = useState(null);
-  console.log(selectCard);
+
   const newCardPopup = { title: "Nuevo lugar", children: <NewCard /> };
   const newAvatarPopup = {
     title: "Cambiar foto de perfil",
     children: <EditAvatar />,
   };
   const newEditPopup = { title: "Editar perfil", children: <EditProfile /> };
-  const imagesPopup = { children: <ImagePopup selectCard={selectCard} /> };
+  const imagesPopup = (selectCard) => ({
+    children: <ImagePopup selectCard={selectCard} />,
+  });
 
   const handleOpenPopup = (popup) => {
     setPopup(popup);
@@ -40,7 +41,6 @@ function App() {
             newAvatarPopup={newAvatarPopup}
             newEditPopup={newEditPopup}
             imagesPopup={imagesPopup}
-            setSelectCard={setSelectCard}
           />
           <Footer />
         </div>
