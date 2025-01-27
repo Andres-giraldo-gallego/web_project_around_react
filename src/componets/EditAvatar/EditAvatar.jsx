@@ -1,4 +1,12 @@
-const EditAvatar = () => {
+import React, { useRef } from "react";
+
+const EditAvatar = (props) => {
+  const { handleEditAvatar } = props;
+  const inputAvatarRef = useRef(null);
+  const handleSubmit = (evt) => {
+    evt.preventDefault();
+    handleEditAvatar(inputAvatarRef?.current.value);
+  };
   return (
     <form className="popup__form" id="popup-form">
       <input
@@ -8,6 +16,7 @@ const EditAvatar = () => {
         id="popup-avatar"
         required
         minLength="2"
+        ref={inputAvatarRef}
       />
 
       <span id="avatar-error" className="popup__red"></span>
@@ -15,6 +24,7 @@ const EditAvatar = () => {
       <button
         className="popup__Submit-Button button-loading"
         id="popup-Submit-Button"
+        onClick={handleSubmit}
       >
         Guardar
       </button>

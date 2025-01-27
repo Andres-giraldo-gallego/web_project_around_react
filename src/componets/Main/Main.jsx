@@ -1,31 +1,17 @@
 import lapiz from "../../images/Vector (1).svg";
-import Avatar from "../../images/Avatar.png";
+import CurrentUserContext from "../../contexts/CurrentUserContext.js";
 import editperfil from "../../images/Edit Button.png";
 import agregarimg from "../../images/Add Button.png";
 import Popup from "../Popup/Popup.jsx";
 import Card from "../Card/Card.jsx";
-const cards = [
-  {
-    isLiked: false,
-    _id: "5d1f0611d321eb4bdcd707dd",
-    name: "Yosemite Valley",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_yosemite.jpg",
-    owner: "5d1f0611d321eb4bdcd707dd",
-    createdAt: "2019-07-05T08:10:57.741Z",
-  },
-  {
-    isLiked: false,
-    _id: "5d1f064ed321eb4bdcd707de",
-    name: "Lake Louise",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lake-louise.jpg",
-    owner: "5d1f0611d321eb4bdcd707dd",
-    createdAt: "2019-07-05T08:11:58.324Z",
-  },
-];
+import apiInstance from "../../utils/api.js";
+import React, { useState, useEffect, useContext } from "react";
+import NewCard from "../NewCard/NewCard.jsx";
+
 const Main = (props) => {
   const {
     handleClosePopup,
-    newCardPopup,
+    setPopup,
     handleOpenPopup,
     popup,
     newEditPopup,
@@ -33,6 +19,65 @@ const Main = (props) => {
     imagesPopup,
     DeleteCard,
   } = props;
+
+  const [cards, setCards] = useState([]);
+
+  const userContext = useContext(CurrentUserContext);
+  // const { currentUser } = useContext(CurrentUserContext);
+
+  const fetchData = async () => {
+    try {
+      // Hacemos la solicitud a la API para obtener los datos
+      const response = await apiInstance.getInitialCards();
+
+      // Configuramos el estado con los datos recibidos
+      setCards(response);
+    } catch (error) {
+      console.error("Error al obtener los datos", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []); // El array vacío significa que se ejecuta solo cuando el componente se monta
+
+  const handleCreateCard = (title, link) => {
+    apiInstance
+      .createCard({ name: title, link })
+      .then((response) => {
+        setCards((state) => [response, ...state]);
+        setPopup(null);
+      })
+
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const handleIslikedCard = (Cardid, isLiked) => {
+    if (isLiked) {
+      apiInstance.dislikeCard(Cardid).then((response) => {
+        setCards((state) => {
+          return state.map((item) =>
+            item._id === response._id ? response : item
+          );
+        });
+      });
+    } else {
+      apiInstance.likeCard(Cardid).then((response) => {
+        setCards((state) => {
+          return state.map((item) =>
+            item._id === response._id ? response : item
+          );
+        });
+      });
+    }
+  };
+
+  const newCardPopup = {
+    title: "Nuevo lugar",
+    children: <NewCard handleCreateCard={handleCreateCard} />,
+  };
+
   return (
     <div>
       <section className="profile">
@@ -41,7 +86,11 @@ const Main = (props) => {
           onClick={() => handleOpenPopup(newAvatarPopup)}
         >
           <img src={lapiz} alt="lapiz" className="profile__avatar-edit" />
-          <img src={Avatar} alt="Avatar" className="profile__avatar" />
+          <img
+            src={userContext.avatar}
+            alt="Avatar"
+            className="profile__avatar"
+          />
         </div>
         <div className="profile__content">
           <div className="profile__info">
@@ -78,11 +127,12 @@ const Main = (props) => {
           {cards.map((card) => (
             <Card
               key={card._id}
-              link={card.link}
-              name={card.name}
+              card={card}
               imagesPopup={imagesPopup}
               handleOpenImage={handleOpenPopup}
               DeleteCard={DeleteCard}
+              handleIslikedCard={handleIslikedCard}
+              handleCreateCard={handleCreateCard}
             />
           ))}
         </div>

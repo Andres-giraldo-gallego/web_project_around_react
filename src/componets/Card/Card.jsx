@@ -1,10 +1,16 @@
 import botebasura from "../../images/Trash.png";
 import megusta from "../../images/Group.png";
-import RemoveCard from "../RemoveCard/RemoveCard";
+//import RemoveCard from "../RemoveCard/RemoveCard";
 
 const Card = (props) => {
-  const { link, name, handleOpenImage, imagesPopup, DeleteCard } = props;
+  const { link, name, isLiked, _id } = props.card || {};
+  console.log(_id);
+  const { handleOpenImage, imagesPopup, DeleteCard } = props;
+  //const { currentUser } = useContext(CurrentUserContext);
 
+  const cardLikeButtonClassName = `elements_link ${
+    isLiked ? "elements_link-img-active" : ""
+  }`;
   const handleCLick = () => {
     handleOpenImage(imagesPopup({ link, name }));
   };
@@ -24,7 +30,7 @@ const Card = (props) => {
           src={botebasura}
           alt="bote de basura"
           className="elements__trash-img"
-          onClick={() => handleOpenImage(DeleteCard)}
+          onClick={() => handleOpenImage(DeleteCard(_id))}
         />
       </button>
 
@@ -34,7 +40,8 @@ const Card = (props) => {
           <img
             src={megusta}
             alt="corazon me gusta"
-            className="elements_link-img"
+            className={cardLikeButtonClassName}
+            onClick={() => props.handleIslikedCard(_id, isLiked)}
           />
         </button>
       </div>

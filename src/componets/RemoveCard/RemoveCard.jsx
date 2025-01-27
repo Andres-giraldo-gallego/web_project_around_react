@@ -1,8 +1,9 @@
 const RemoveCard = (props) => {
   const { selectedCard, handleSudmidButton } = props;
+  console.log(selectedCard);
   return (
     <>
-      <form className="popup__form" id="popup-form">
+      <div className="popup__form" id="popup-form">
         <h2 className="popup__text">¿Estás seguro/a?</h2>
         <button
           className="popup__Submit-Button button-loading"
@@ -11,7 +12,7 @@ const RemoveCard = (props) => {
         >
           Sí
         </button>
-      </form>
+      </div>
     </>
   );
 };
