@@ -1,13 +1,13 @@
-import Header from "./components/Header/Header.jsx";
-import Footer from "./components/Footer/Footer.jsx";
+import Header from "../Header/Header.jsx";
+import Footer from "../Footer/Footer.jsx";
 import { useState, useEffect } from "react";
-import Main from "./components/Main/Main.jsx";
-import apiInstance from "./utils/api.js";
-import EditProfile from "./components/EditProfile/EditProfile.jsx";
-import EditAvatar from "./components/EditAvatar/EditAvatar.jsx";
-import ImagePopup from "./components/ImagePopup/ImagePopup.jsx";
-import RemoveCard from "./components/RemoveCard/RemoveCard.jsx";
-import CurrentUserContext from "./contexts/CurrentUserContext.js";
+import Main from "../Main/Main.jsx";
+import apiInstance from "../../utils/api.js";
+import EditProfile from "../EditProfile/EditProfile.jsx";
+import EditAvatar from "../EditAvatar/EditAvatar.jsx";
+import ImagePopup from "../ImagePopup/ImagePopup.jsx";
+import RemoveCard from "../RemoveCard/RemoveCard.jsx";
+import CurrentUserContext from "../../contexts/CurrentUserContext.js";
 
 function App() {
   const [popup, setPopup] = useState(null);
