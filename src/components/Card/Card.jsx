@@ -1,12 +1,10 @@
 import botebasura from "../../images/Trash.png";
 import megusta from "../../images/Group.png";
-//import RemoveCard from "../RemoveCard/RemoveCard";
 
 const Card = (props) => {
   const { link, name, isLiked, _id } = props.card || {};
 
   const { handleOpenImage, imagesPopup, DeleteCard } = props;
-  //const { currentUser } = useContext(CurrentUserContext);
 
   const cardLikeButtonClassName = `elements_link ${
     isLiked ? "elements_link-img-active" : ""

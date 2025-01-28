@@ -20,10 +20,14 @@ function App() {
   };
 
   const handleEditAvatar = (avatar) => {
-    apiInstance.editAvatarUser(avatar).then((response) => {
-      setCurrentUser(response);
-      setPopup(null);
-    });
+    if (avatar == "") {
+      alert("Por favor rellenar la URL");
+    } else {
+      apiInstance.editAvatarUser(avatar).then((response) => {
+        setCurrentUser(response);
+        setPopup(null);
+      });
+    }
   };
 
   useEffect(() => {
