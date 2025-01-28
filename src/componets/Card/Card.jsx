@@ -4,7 +4,7 @@ import megusta from "../../images/Group.png";
 
 const Card = (props) => {
   const { link, name, isLiked, _id } = props.card || {};
-  console.log(_id);
+
   const { handleOpenImage, imagesPopup, DeleteCard } = props;
   //const { currentUser } = useContext(CurrentUserContext);
 

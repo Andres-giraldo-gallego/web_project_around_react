@@ -5,7 +5,7 @@ import agregarimg from "../../images/Add Button.png";
 import Popup from "../Popup/Popup.jsx";
 import Card from "../Card/Card.jsx";
 import apiInstance from "../../utils/api.js";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useContext } from "react";
 import NewCard from "../NewCard/NewCard.jsx";
 
 const Main = (props) => {
@@ -18,9 +18,9 @@ const Main = (props) => {
     newAvatarPopup,
     imagesPopup,
     DeleteCard,
+    cards,
+    setCards,
   } = props;
-
-  const [cards, setCards] = useState([]);
 
   const userContext = useContext(CurrentUserContext);
   // const { currentUser } = useContext(CurrentUserContext);
@@ -94,8 +94,8 @@ const Main = (props) => {
         </div>
         <div className="profile__content">
           <div className="profile__info">
-            <p className="profile__name">Andres Giraldo.</p>
-            <p className="profile__hobbie">Explorador</p>
+            <p className="profile__name">{userContext.name}</p>
+            <p className="profile__hobbie">{userContext.about}</p>
           </div>
 
           <button

@@ -12,6 +12,7 @@ import CurrentUserContext from "./contexts/CurrentUserContext.js";
 function App() {
   const [popup, setPopup] = useState(null);
   const [CurrentUser, setCurrentUser] = useState({});
+  const [cards, setCards] = useState([]);
 
   const fechUser = async () => {
     const responseUser = await apiInstance.getUserInfo();
@@ -19,7 +20,6 @@ function App() {
   };
 
   const handleEditAvatar = (avatar) => {
-    console.log(avatar);
     apiInstance.editAvatarUser(avatar).then((response) => {
       setCurrentUser(response);
       setPopup(null);
@@ -34,6 +34,7 @@ function App() {
     (async () => {
       await apiInstance.editUserInfo(data).then((newData) => {
         setCurrentUser(newData);
+        setPopup(null);
       });
     })();
   };
@@ -59,10 +60,10 @@ function App() {
       />
     ),
   });
-  const handleSudmidButton = (selectedCard) => {
-    console.log(selectedCard);
-    apiInstance.deleteCard(selectedCard).then((response) => {
-      setCards((state) => state.filter((item) => item._id !== response._id));
+  const handleSudmidButton = (selectCard) => {
+    apiInstance.deleteCard(selectCard).then(() => {
+      setCards((state) => state.filter((item) => item._id !== selectCard));
+      setPopup(null);
     });
   };
   const handleOpenPopup = (popup) => {
@@ -88,6 +89,8 @@ function App() {
               imagesPopup={imagesPopup}
               DeleteCard={DeleteCard}
               setPopup={setPopup}
+              cards={cards}
+              setCards={setCards}
             />
             <Footer />
           </div>

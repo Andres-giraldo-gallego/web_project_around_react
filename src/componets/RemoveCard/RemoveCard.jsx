@@ -1,6 +1,6 @@
 const RemoveCard = (props) => {
-  const { selectedCard, handleSudmidButton } = props;
-  console.log(selectedCard);
+  const { selectCard, handleSudmidButton } = props;
+
   return (
     <>
       <div className="popup__form" id="popup-form">
@@ -8,7 +8,7 @@ const RemoveCard = (props) => {
         <button
           className="popup__Submit-Button button-loading"
           id="popup-delete-button"
-          onClick={() => handleSudmidButton(selectedCard)}
+          onClick={() => handleSudmidButton(selectCard)}
         >
           Sí
         </button>

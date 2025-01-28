@@ -1,7 +1,7 @@
 import { useState, useContext } from "react";
 import CurrentUserContext from "../../contexts/CurrentUserContext.js";
 
-const EditProfile = () => {
+const EditProfile = (props) => {
   const currentUser = useContext(CurrentUserContext); // Obtiene el objeto currentUser
 
   const [name, setName] = useState(currentUser.name); // Agrega la variable de estado para name
@@ -18,7 +18,7 @@ const EditProfile = () => {
   const handleSubmit = (event) => {
     event.preventDefault(); // Evita el comportamiento predeterminado del envío de formularios
 
-    handleUpdateUser({ name, about: description }); // Actualiza la información del usuario
+    props.handleUpdateUser({ name, about: description }); // Actualiza la información del usuario
   };
 
   return (
