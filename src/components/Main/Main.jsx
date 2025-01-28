@@ -42,17 +42,16 @@ const Main = (props) => {
   }, []); // El array vacío significa que se ejecuta solo cuando el componente se monta
 
   const handleCreateCard = (title, link) => {
-    apiInstance
-      .createCard({ name: title, link })
-      .then((response) => {
+    if ((title, link == "")) {
+      alert("Por favor completar los datos");
+    } else {
+      apiInstance.createCard({ name: title, link }).then((response) => {
         setCards((state) => [response, ...state]);
         setPopup(null);
-      })
-
-      .catch((err) => {
-        console.log(err);
       });
+    }
   };
+
   const handleIslikedCard = (Cardid, isLiked) => {
     if (isLiked) {
       apiInstance.dislikeCard(Cardid).then((response) => {
